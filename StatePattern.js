@@ -1,22 +1,20 @@
-var GumballMachine = function(){
-	var numOfGumballs = 100;
-	var amountOfMoney = 0;
+"use strict"
 
-	var hasQuarter;
-	var soldOut;
-	var noQuarter;
+let GumballMachine = function(){
+	let numOfGumballs = 1;
+	let amountOfMoney = 0;
 
-	var state;
+	let state;
 
-	this.getState = function(){
-		state.getState;
-	}
-
-	hasQuarter = new HasQuarterState(this);
-	soldOut = new SoldOutState(this);
-	noQuarter = new NoQuarterState(this);
+	let hasQuarter = new HasQuarterState(this);
+	let soldOut = new SoldOutState(this);
+	let noQuarter = new NoQuarterState(this);
 
 	state = noQuarter;
+
+	this.getState = function(){
+		return state.getState();
+	}
 
 	this.getNumOfGumballs = function(){
 		return numOfGumballs;
@@ -31,7 +29,7 @@ var GumballMachine = function(){
 	}
 
 	this.insertQuarter = function(){
-		state.insertQuarter;
+		state.insertQuarter();
 	}
 
 	this.ejectQuarter = function(){
@@ -40,7 +38,7 @@ var GumballMachine = function(){
 
 	this.turnCrank = function(){
 		//amountOfMoney += .25;
-		state.turnCrank;
+		state.turnCrank();
 	}
 
 	this.getHasQuarterState = function(){
@@ -54,8 +52,8 @@ var GumballMachine = function(){
 	}
 }
 
-var HasQuarterState = function(newGumballMachine){
-	var gumballMachine = newGumballMachine;
+let HasQuarterState = function(newGumballMachine){
+	let gumballMachine = newGumballMachine;
 	this.name = "HasQuarterState";
 
 	this.insertQuarter = function(){
@@ -70,7 +68,7 @@ var HasQuarterState = function(newGumballMachine){
 	this.turnCrank = function(){
 		console.log("Enjoy your Gumball from Mighty Gumball!");
 		gumballMachine.dispenseGumball();
-		if (gumballMachine.getNumOfGumballs() == 0) {
+		if (gumballMachine.getNumOfGumballs() <= 0) {
 			gumballMachine.setGumballMachineState(gumballMachine.getSoldOutState());
 		} else {
 			gumballMachine.setGumballMachineState(gumballMachine.getNoQuarterState());
@@ -82,8 +80,8 @@ var HasQuarterState = function(newGumballMachine){
 	}
 }
 
-var NoQuarterState = function(newGumballMachine){
-	var gumballMachine = newGumballMachine;
+let NoQuarterState = function(newGumballMachine){
+	let gumballMachine = newGumballMachine;
 	this.name = NoQuarterState;
 
 	this.insertQuarter = function(){
@@ -96,7 +94,7 @@ var NoQuarterState = function(newGumballMachine){
 	}
 
 	this.turnCrank = function(){
-		console.log("Please insert a quarter first.")	
+		console.log("Please insert a quarter first.");	
 	}
 
 	this.getState = function(){
@@ -104,8 +102,8 @@ var NoQuarterState = function(newGumballMachine){
 	}
 }
 
-var SoldOutState = function(newGumballMachine){
-	var gumballMachine = newGumballMachine;
+let SoldOutState = function(newGumballMachine){
+	let gumballMachine = newGumballMachine;
 	this.name = SoldOutState;
 
 	this.insertQuarter = function(){
@@ -125,28 +123,49 @@ var SoldOutState = function(newGumballMachine){
 	}
 }
 
-var gumballMachine = new GumballMachine();
+let gumballMachine = new GumballMachine();
 
 // starts in no quarter
+console.log('Let\'s Go!')
+console.log('\nCommand: getState')
 gumballMachine.getState();
+console.log('\nCommand: ejectQuarter')
 gumballMachine.ejectQuarter();
+console.log('\nCommand: turnCrank')
 gumballMachine.turnCrank();
+console.log('\nCommand: insertQuarter')
 gumballMachine.insertQuarter();
+
+console.log('\nNext phase!---------------------------------------------------\n')
 
 // now it's in hasQuarter
+console.log('\nCommand: getState')
 gumballMachine.getState();
+console.log('\nCommand: insertQuarter')
 gumballMachine.insertQuarter();
+console.log('\nCommand: ejectQuarter')
 gumballMachine.ejectQuarter();
 // back to noQuarter
+console.log('\nCommand: getState')
 gumballMachine.getState();
 
+
+console.log('\nCommand: insertQuarter')
 gumballMachine.insertQuarter();
 // hasQuarter
+console.log('\nCommand: getState')
 gumballMachine.getState();
+console.log('\nCommand: turnCrank')
 gumballMachine.turnCrank();
 
+console.log('\nLast phase!---------------------------------------------------\n')
+
 // Now it's in noQuarter (or sold out).
+console.log('\nCommand: getState')
 gumballMachine.getState();
+console.log('\nCommand: insertQuarter')
 gumballMachine.insertQuarter();
+console.log('\nCommand: ejectQuarter')
 gumballMachine.ejectQuarter();
+console.log('\nCommand: turnCrank')
 gumballMachine.turnCrank();
