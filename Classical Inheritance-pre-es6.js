@@ -16,7 +16,9 @@ Guitarist.prototype = new Musician();
 
 var person1 = new Musician();
 
-console.log("name is ", person1.name, "\nTalent is", person1.talent, "\ninstanceof Person", person1 instanceof Person, "\ninstanceof Musician", person1 instanceof Musician)
+console.log("name is ", person1.name, "\nTalent is", person1.talent,
+  "\ninstanceof Person", person1 instanceof Person,
+  "\ninstanceof Musician", person1 instanceof Musician)
 
 var person2 = new Guitarist();
 
